@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="build/tailwind.css" />
+    <title>Product Settings</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js"
+      defer
+    ></script>
+  </head>
+  <body
+    style="font-size: 16px"
+    class="bg-teal-900 antialiased text-gray-900 px-4"
+  >
+    <div class="max-w-sm mx-auto mt-32">
+      <form
+        x-data="{
+        open: false,
+        selected: undefined,
+        countries: ['Finland', 'Greece', 'United States', 'Taiwan', 'Georgia', 'Andorra']
+      }"
+        action="http://127.0.0.1:8080/dropdown.html"
+      >
+        <div class="relative">
+          <label for="dropdown" class="font-semibold text-white mb-2 block"
+            >Country</label
+          >
+          <div
+            id="dropdown"
+            @click="open = !open"
+            @click.away="open = false"
+            :class="{'border-blue-500': open}"
+            class="bg-white border select-none border-gray-400 px-4 cursor-pointer py-2 rounded flex justify-between items-center"
+          >
+            <span
+              :class="{'text-gray-600': !selected}"
+              x-text="selected ? selected : 'Choose'"
+            ></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              :class="{'rotate-180': open}"
+              class="w-4 text-gray-600 transform"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div
+            class="py-3 shadow-md rounded absolute mt-4 w-5/6 ml-4 bg-white"
+            x-show="open"
+          >
+            <div
+              class="absolute top-0 transform rotate-45 ml-4 h-4 w-4 bg-white -mt-2"
+            ></div>
+            <ul>
+              <template x-for="country in countries.sort()">
+                <li
+                  @click="selected = country"
+                  :class="{'bg-green-200 text-green-900': selected === country}"
+                  class="cursor-pointer px-4 py-2 hover:bg-green-100 flex justify-between items-center"
+                >
+                  <span x-text="country"></span>
+                  <svg
+                    x-show="selected === country"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    class="w-6 text-green-600"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg></li
+              ></template>
+            </ul>
+          </div>
+        </div>
+        <button
+          x-bind:disabled="!selected"
+          type="submit"
+          class="mt-8 text-xl px-6 py-3 flex items-center justify-center rounded bg-teal-600 disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500 hover:bg-teal-500 text-white font-semibold w-full shadow focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            :class="{'text-teal-300': selected}"
+            class="w-5 mr-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+            />
+          </svg>
+          Send Gift
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
